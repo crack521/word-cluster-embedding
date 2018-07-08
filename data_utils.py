@@ -5,7 +5,7 @@ import numpy as np
 
 from collections import Counter
 
-
+##修改测试
 def get_dict(data):
     word_count = Counter()
     for sent in data:

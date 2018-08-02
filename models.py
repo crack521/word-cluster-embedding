@@ -5,14 +5,19 @@ import tensorflow as tf
 
 from model_utils import gumbel_softmax, softmax_with_temperature
 
-
 class base_classifier:
     def __init__(self, args):
+        #模型参数设置
         # model configurations
+        #隐含层大小
         self.hidden_size = args.hidden_size
+        #embedding维度
         self.embed_dim = args.embed_dim
+        #待定
         self.n_embed = args.n_embed
+        #分类标签个数
         self.n_class = args.n_class
+        #待定
         self.bidir = args.bidir
         self.proj = args.proj
 
@@ -22,7 +27,7 @@ class base_classifier:
         self.lr = args.learning_rate
         self.opt = args.opt
         self.l2 = args.l2
-
+        #rnn的不同设置
         if args.rnn_type.lower() == 'lstm':
             self.cell = tf.contrib.rnn.BasicLSTMCell
         elif args.rnn_type.lower() == 'gru':

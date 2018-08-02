@@ -5,6 +5,7 @@ import tensorflow as tf
 
 from model_utils import gumbel_softmax, softmax_with_temperature
 
+#基本分类器
 class base_classifier:
     def __init__(self, args):
         #模型参数设置

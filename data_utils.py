@@ -13,7 +13,7 @@ def get_dict(data):
             word_count[word] += 1
     return word_count
 
-
+#得到数据类别编码
 def get_n_class(dataset):
     if dataset.lower() == "yelp-1":
         return 5
@@ -26,7 +26,7 @@ def get_n_class(dataset):
     else:
         return 2
 
-
+#创建字典
 def make_dict(
         vocab, vocab_file, max_words=None, save_vocab=False):
     if max_words is None:
@@ -49,7 +49,7 @@ def make_dict(
     vocab["<unk>"] = 0
     return vocab
 
-
+#加载字典
 def load_dict(vocab_file):
     logging.info("loading vocabularies from " + vocab_file + " ...")
     with open(vocab_file, "rb") as vocab_fp:
@@ -58,11 +58,11 @@ def load_dict(vocab_file):
     logging.info("vocab size: {}".format(len(vocab)))
     return vocab
 
-
+#数据转id
 def data_to_idx(data, vocab):
     return [to_idxs(sent, vocab) for sent in data]
 
-
+#准备数据 文本数据和分类标签
 def prepare_data(revs, vocab):
     data = []
     label = []
@@ -71,7 +71,7 @@ def prepare_data(revs, vocab):
         label.append(rev["y"])
     return np.asarray(data), np.asarray(label)
 
-
+#batch
 def make_batch(revs, labels, batch_size, shuffle=True):
     n = len(revs)
     revs = np.asarray(revs)
@@ -91,7 +91,7 @@ def make_batch(revs, labels, batch_size, shuffle=True):
             labels[np.arange(idx, min(idx + batch_size, n))])
     return batch_data, batch_label
 
-
+#对序列进行填空
 def pad_seq(data):
     data_len = [len(data_) for data_ in data]
     max_len = np.max(data_len)
@@ -103,7 +103,7 @@ def pad_seq(data):
         mask[i, :len(data_)] = 1
     return data_holder, mask
 
-
+#显示 打印数据
 def show_data(seqs, inv_dict):
     def inv_vocab(x):
         return inv_dict[x]
@@ -127,7 +127,7 @@ def to_idxs(words, vocab):
     idxs = [to_index(word, vocab) for word in words]
     return idxs
 
-
+#计算位置单词的比例等信息
 def cal_unk(sents):
     unk_count = 0
     total_count = 0
